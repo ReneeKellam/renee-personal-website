@@ -1,0 +1,197 @@
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~General Styling~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+h1 {
+    font-family: 'Franklin Gothic', sans-serif;
+    text-align: center;
+    font-variant: small-caps;
+}
+h2 {
+    font-family: 'Franklin Gothic', sans-serif;
+    font-variant: small-caps;
+}
+p {
+    font-family: Arial, sans-serif;
+    font-size: 1.2em;
+}
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.page-content {
+    max-width: 80vw;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+.card {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~Home Styling~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.skill-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 10px 0;
+    justify-content: center; /* Center the skill cards */
+}
+.skill-card {
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+    font-family: 'monospace', monospace;
+    display: inline-block;
+    white-space: nowrap; /* Ensures text stays on one line */
+}
+.skill-card p {
+    margin: 0;
+    padding: 0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~Library Styling~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 10px 0;
+    justify-content: center;
+}
+.book-card {
+    width: 200px;
+    height: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.book-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~Resume Styling~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.job-entry {
+    width: 100%;
+    border-collapse: collapse;
+}
+.job-entry td {
+    padding: 10px;
+    border: none;
+}
+.job-entry h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+.job-entry p {
+    margin: 5px 0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~Header Styling~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.header {
+    background-color: #f2f2f2;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    border-bottom: 2px solid #000000;
+    width: 80vw;
+    margin: 0 auto;
+}
+.header nav {
+    margin-left: auto;
+    margin-right: 0;
+}
+.nav-table td {
+    padding: 0 10px;
+    border-right:#000000 1px solid;
+}
+.nav-table td:last-child {
+    border-right: none;
+}
+.nav-table a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-family: 'Franklin Gothic', sans-serif;
+    
+}
+.nav-table a:hover {
+    text-decoration: underline;
+    color: #555555;
+}
+.nav-table { display: table; }
+.mobile-nav { display: none; }
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~Phone Styling~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+@media (max-width: 700px) {
+    .nav-table { display: none; }
+    .mobile-nav { display: block; position: relative; }
+    #menu-toggle {
+        font-size: 2em;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #f2f2f2;
+        border:#000 2px solid;
+        min-width: 200px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        z-index: 9999;
+    }
+    .dropdown-content a {
+        color: #000;
+        padding: 5px;
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+    }
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
+    .dropdown-content.show {
+        display: block;
+    }
+    .job-entry, .job-entry tr, .job-entry td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .job-entry {
+        border: none;
+        margin-bottom: 15px;
+        background: #fff;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+        padding: 10px;
+    }
+}
