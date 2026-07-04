@@ -14,7 +14,7 @@ if (!is_array($data)) {
 <?php
 
 try {
-    $stmt = $pdo->prepare("UPDATE `jobs-resume` SET `display-order` = ? WHERE `Job ID` = ?");
+    $stmt = $pdo->prepare("UPDATE `jobs` SET `display-order` = ? WHERE `id` = ?");
     foreach ($data as $item) {
         if (!isset($item['order']) || !isset($item['id']) || !is_numeric($item['id']) || $item['id'] === '') continue;
         $stmt->execute([$item['order'], $item['id']]);

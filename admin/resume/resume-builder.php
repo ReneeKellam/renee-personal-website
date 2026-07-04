@@ -26,7 +26,7 @@
 <div class="page-content">
     <div class="job-list">
     <?php
-        $query = "SELECT * FROM `jobs-resume` ORDER BY `Display-Order` ASC";
+        $query = "SELECT * FROM `jobs` ORDER BY `display-order` ASC , `title` DESC";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,12 +35,12 @@
             echo "<p class='centered'>No jobs found.</p>";
         } else { 
             foreach ($jobs as $job) {
-                $end_date = $job['End-Date'] ? $job['End-Date'] : 'Current'; ?>
-                    <div class="card job-card" draggable="true" data-id="<?php echo $job['Job ID']; ?>" data-order="<?php echo $job['display-order']; ?>">
+                $end_date = $job['end-date'] ? $job['end-date'] : 'Current'; ?>
+                    <div class="card job-card" draggable="true" data-id="<?php echo $job['id']; ?>" data-order="<?php echo $job['display-order']; ?>">
                         <table class="job-entry">
                             <tr>
-                                <td> <h2><?php echo htmlspecialchars($job['Title']) . " at " . htmlspecialchars($job['Employer']); ?></h2></td>
-                                <td style="text-align: right;"> <p><?php echo htmlspecialchars($job['Start-Date']) . " to " . htmlspecialchars($end_date); ?></p></td>
+                                <td> <h2><?php echo htmlspecialchars($job['title']) . " at " . htmlspecialchars($job['employer']); ?></h2></td>
+                                <td style="text-align: right;"> <p><?php echo htmlspecialchars($job['start-date']) . " to " . htmlspecialchars($end_date); ?></p></td>
                             </tr>
                             <tr>
                                 <td colspan="2"><p><?php echo nl2br(htmlspecialchars($job['Description'])); ?></p></td>

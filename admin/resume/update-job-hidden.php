@@ -10,7 +10,7 @@ if (!isset($data['id']) || !isset($data['hidden']) || !is_numeric($data['id'])) 
     exit;
 }
 
-$stmt = $pdo->prepare("UPDATE `jobs-resume` SET `hidden` = ? WHERE `Job ID` = ?");
+$stmt = $pdo->prepare("UPDATE `jobs` SET `hidden` = ? WHERE `id` = ?");
 try {
     $stmt->execute([$data['hidden'], $data['id']]);
     echo "Job visibility updated!";

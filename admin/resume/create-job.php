@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $job_description = $_POST['job_description'];
     $skills_used = $_POST['skills_used'];
 
-    $stmt = $pdo->prepare("INSERT INTO `jobs-resume` (`Employer`, `Title`, `Start-Date`, `End-Date`, `Description`, `Skills`, `Display-Order`, `hidden`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO `jobs` (`employer`, `title`, `start-date`, `end-date`, `description`, `skills`, `display-order`, `hidden`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     try {
         $stmt->execute([$employer, $job_title, $start_date, $end_date, $job_description, $skills_used, 99, 0]);
     } catch (Exception $e) {

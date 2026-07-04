@@ -21,7 +21,7 @@
         echo "<p class='centered'>Invalid job ID.</p>";
         exit;
     }
-    $stmt = $pdo->prepare("SELECT * FROM `jobs-resume` WHERE `Job ID` = ?");
+    $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE `id` = ?");
     $stmt->execute([$jobId]);
     $job = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$job) {
@@ -29,13 +29,13 @@
         exit;
     }
 
-    $jobTitle = $job['Title'] ?? '';
-    $jobEmployer = $job['Employer'] ?? '';
-    $jobStartDate = $job['Start-Date'] ?? '';
-    $jobEndDate = $job['End-Date'] ?? '';
-    $jobDescription = $job['Description'] ?? '';
-    $jobSkills = $job['Skills'] ?? '';
-    $jobId = $job['Job ID'];
+    $jobTitle = $job['title'] ?? '';
+    $jobEmployer = $job['employer'] ?? '';
+    $jobStartDate = $job['start-date'] ?? '';
+    $jobEndDate = $job['end-date'] ?? '';
+    $jobDescription = $job['description'] ?? '';
+    $jobSkills = $job['skills'] ?? '';
+    $jobId = $job['id'];
 ?>
 <h1 class="centered">Edit Job</h1>
 <form action="update-job.php" method="POST" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 75vw; margin: auto; font-size: 1.25em;">

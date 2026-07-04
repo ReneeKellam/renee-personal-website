@@ -15,7 +15,7 @@
             exit;
         }
         if ($id && is_numeric($id)) {
-            $stmt = $pdo->prepare("UPDATE `jobs-resume` SET `Title` = ?, `Employer` = ?, `Start-Date` = ?, `End-Date` = ?, `Description` = ?, `Skills` = ? WHERE `Job ID` = ?");
+            $stmt = $pdo->prepare("UPDATE `jobs` SET `title` = ?, `employer` = ?, `start-date` = ?, `end-date` = ?, `description` = ?, `skills` = ? WHERE `id` = ?");
             try {
                 $stmt->execute([$title, $employer, $startDate, $endDate, $description, $skills, $id]);
                 $msg = "Job updated successfully!";
