@@ -19,7 +19,7 @@
             <p class="centered">Welcome to my work experience page! Here, you'll find a detailed overview of my professional journey, including the roles I've held, the skills I've acquired, and the projects I've contributed to. My career has been marked by a commitment to excellence and a passion for continuous learning. Feel free to explore my experiences and see how they have shaped my expertise in the field.</p>
         </div>
         <?php
-            $query = "SELECT * FROM `jobs` WHERE `hidden` = 0 ORDER BY `display-order` ASC, `title` DESC";
+            $query = "SELECT * FROM `jobs` WHERE `hidden` = 0 ORDER BY `display_order` ASC, `title` DESC";
             $stmt = $pdo->prepare($query);
             $stmt->execute();
             $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -28,18 +28,18 @@
                 echo "<p class='centered'>No work experience found.</p>";
             } else { 
                 foreach ($jobs as $job) { 
-                    $end_date = $job['end-date'] ? $job['end-date'] : 'Current';?>
+                    $end_date = $job['end_date'] ? $job['end_date'] : 'Current';?>
                     <div class='card'>
                         <table class='job-entry'>
                             <tr>
                                 <td> <h2><?php echo htmlspecialchars($job['title']) . " at " . htmlspecialchars($job['employer']); ?></h2></td>
-                                <td style="text-align: right;"> <p><?php echo htmlspecialchars($job['start-date']) . " to " . htmlspecialchars($end_date); ?></p></td>
+                                <td style="text-align: right;"> <p><?php echo htmlspecialchars($job['start_date']) . " to " . htmlspecialchars($end_date); ?></p></td>
                             </tr>
                             <tr>
                                 <td colspan="2"><p><?php echo nl2br(htmlspecialchars($job['description'])); ?></p></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><p><strong>Skills Used:</strong> <?php echo nl2br(htmlspecialchars($job['Skills'])); ?></p></td>
+                                <td colspan="2"><p><strong>Skills Used:</strong> <?php echo nl2br(htmlspecialchars($job['skills'])); ?></p></td>
                             </tr>
                         </table>
                     </div>

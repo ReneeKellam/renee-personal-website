@@ -26,7 +26,7 @@
 <div class="page-content">
     <div class="job-list">
     <?php
-        $query = "SELECT * FROM `jobs` ORDER BY `display-order` ASC , `title` DESC";
+        $query = "SELECT * FROM `jobs` ORDER BY `display_order` ASC , `title` DESC";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         $jobs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -35,25 +35,25 @@
             echo "<p class='centered'>No jobs found.</p>";
         } else { 
             foreach ($jobs as $job) {
-                $end_date = $job['end-date'] ? $job['end-date'] : 'Current'; ?>
-                    <div class="card job-card" draggable="true" data-id="<?php echo $job['id']; ?>" data-order="<?php echo $job['display-order']; ?>">
+                $end_date = $job['end_date'] ? $job['end_date'] : 'Current'; ?>
+                    <div class="card job-card" draggable="true" data-id="<?php echo $job['id']; ?>" data-order="<?php echo $job['display_order']; ?>">
                         <table class="job-entry">
                             <tr>
                                 <td> <h2><?php echo htmlspecialchars($job['title']) . " at " . htmlspecialchars($job['employer']); ?></h2></td>
-                                <td style="text-align: right;"> <p><?php echo htmlspecialchars($job['start-date']) . " to " . htmlspecialchars($end_date); ?></p></td>
+                                <td style="text-align: right;"> <p><?php echo htmlspecialchars($job['start_date']) . " to " . htmlspecialchars($end_date); ?></p></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><p><?php echo nl2br(htmlspecialchars($job['Description'])); ?></p></td>
+                                <td colspan="2"><p><?php echo nl2br(htmlspecialchars($job['description'])); ?></p></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><p><strong>Skills Used:</strong> <?php echo nl2br(htmlspecialchars($job['Skills'])); ?></p></td>
+                                <td colspan="2"><p><strong>Skills Used:</strong> <?php echo nl2br(htmlspecialchars($job['skills'])); ?></p></td>
                             </tr>
                         </table>
                 <?php 
-                echo "<a href='edit-job.php?id=" . $job['Job ID'] . "'><button>Edit</button></a> ";
+                echo "<a href='edit-job.php?id=" . $job['id'] . "'><button>Edit</button></a> ";
                 echo '<form class="hide-job-form" style="display:inline;">
-                        <label for="hide-'.$job['Job ID'].'">Hidden</label>
-                        <input type="checkbox" name="hidden" value="1" '.($job['hidden'] == 1 ? 'checked' : '').' data-id="'.$job['Job ID'].'" id="hide-'.$job['Job ID'].'" style="margin-right:5px;">
+                        <label for="hide-'.$job['id'].'">Hidden</label>
+                        <input type="checkbox" name="hidden" value="1" '.($job['hidden'] == 1 ? 'checked' : '').' data-id="'.$job['id'].'" id="hide-'.$job['id'].'" style="margin-right:5px;">
                     </form>';
                 echo "</div>";
             }

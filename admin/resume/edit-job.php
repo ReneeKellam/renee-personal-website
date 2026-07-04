@@ -31,8 +31,8 @@
 
     $jobTitle = $job['title'] ?? '';
     $jobEmployer = $job['employer'] ?? '';
-    $jobStartDate = $job['start-date'] ?? '';
-    $jobEndDate = $job['end-date'] ?? '';
+    $jobStartDate = $job['start_date'] ?? '';
+    $jobEndDate = $job['end_date'] ?? '';
     $jobDescription = $job['description'] ?? '';
     $jobSkills = $job['skills'] ?? '';
     $jobId = $job['id'];
