@@ -8,6 +8,12 @@ A complete list of the files used to build my personal website (https://renee-ke
 Check here for a link to a pdf detailing how to make this website your own! 
 (!!! WORK IN PROGRESS !!!)
 
+## Notes:
+### function <code>adminChecker()</code>
+This function is an ***extremely*** simple checker function. If you need something more secure, I would recommend using authenticated user accounts and putting more information into the $_SESSION global variable that must all match.
+<br>
+To do this, create a <code>**users**</code> table that has information like user_id, username, etc. And include some of this information in the $_SESSION variable along with a randomly generated code on login. Then run a check that requires each peice of information to match with that on the table.
+
 
 ## Database Structure
 ### *jobs*

@@ -1,0 +1,46 @@
+[15-Sep-2025 18:05:20 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:67
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(67): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 67
+[15-Sep-2025 18:07:06 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:67
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(67): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 67
+[15-Sep-2025 18:08:31 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:67
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(67): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 67
+[15-Sep-2025 18:09:29 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:67
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(67): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 67
+[15-Sep-2025 18:10:46 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:69
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(69): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 69
+[15-Sep-2025 18:13:49 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:69
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(69): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 69
+[15-Sep-2025 18:17:53 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:69
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(69): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 69
+[15-Sep-2025 18:17:54 America/Boise] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY093]: Invalid parameter number in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php:69
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php(69): PDOStatement->execute()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/pages/library.php on line 69
+[04-Jul-2026 18:31:54 America/Boise] Error logging is enabled. Errors will be logged to: /home1/uzwapxmy/public_html/website_d672ac06/config/../renee-kellam-@dm1n/error.log
+[04-Jul-2026 18:31:54 America/Boise] PHP Fatal error:  Uncaught Exception: .env not found or unreadable: /home1/uzwapxmy/secrets/.env in /home1/uzwapxmy/public_html/website_d672ac06/config/new-config.php:56
+Stack trace:
+#0 /home1/uzwapxmy/public_html/website_d672ac06/renee-kellam-@dm1n/pages/manager-library.php(2): require_once()
+#1 {main}
+  thrown in /home1/uzwapxmy/public_html/website_d672ac06/config/new-config.php on line 56

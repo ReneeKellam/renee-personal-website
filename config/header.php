@@ -1,7 +1,7 @@
 <header>
     <?php
         ini_set('log_errors', 1);
-        ini_set('error_log', __DIR__ . '/../admin/error.log'); // Adjust path as needed
+        ini_set('error_log', __DIR__ . '/../renee-kellam-@dm1n/error.log'); // Adjust path as needed
         error_reporting(E_ALL);
     ?>
     <div class="header">

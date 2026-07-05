@@ -1,0 +1,18 @@
+# --- Force HTTPS
+Header always set Content-Security-Policy "upgrade-insecure-requests;"
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# --- General rewrite rules
+RewriteRule ^$ /pages/home.php [L]
+RewriteRule ^home$ /pages/home.php [L]
+RewriteRule ^work-experience$ /pages/resume.php [L]
+RewriteRule ^library$ /pages/library.php [L]
+RewriteRule ^projects$ /pages/projects.php [L]
+
+# --- Error 404 page
+ErrorDocument 404 /pages/error404.php
+
+# --- Secrets Directory
+SetEnv SECRETS_DIR "/home1/uzwapxmy/secrets"
