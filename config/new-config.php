@@ -1,8 +1,6 @@
 <?php
 // General configuration settings for the application that are required for the application to function properly.
 
-error_log("Loading configuration settings from config/new-config.php");
-
 // start session if not already started
 if (!isset($_SESSION)) {
     session_start();
@@ -13,8 +11,6 @@ $errorLogPath = __DIR__ . '/../renee-kellam-@dm1n/error.log';
 ini_set('log_errors', 1);
 ini_set('error_log', $errorLogPath);
 ini_set('display_errors', 0);
-
-error_log("Error logging is enabled. Errors will be logged to: $errorLogPath");
 
 // 404 error handling
 $backtrace = debug_backtrace();
@@ -64,8 +60,6 @@ function env(string $key, $default = null) {
     return $value;
 }
 
-error_log("Environment variables loaded from: $envPath");
-
 // Database connection settings
 $dbHost = env('DB_HOST', 'localhost');
 $dbUser = env('DB_USER', 'root');
@@ -87,8 +81,6 @@ try {
     throw new \PDOException($e->getMessage(), (int)$e->getCode());
 }
 
-error_log("Database connection established to $dbName at $dbHost");
-
 // simple function to check if an admin is logged in
 function adminChecker() {
     if (!isset($_SESSION['admin_authenticated']) || $_SESSION['admin_authenticated'] !== true) {
@@ -96,7 +88,5 @@ function adminChecker() {
         exit;
     }
 }
-
-error_log("Admin checker function is ready to use.");
 
 // End of config file

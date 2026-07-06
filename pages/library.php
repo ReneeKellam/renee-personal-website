@@ -26,17 +26,17 @@
             $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
             // Build the SQL query with search functionality
-            $where = "`Hidden` = 0";
+            $where = "`hidden` = 0";
             $params = [];
 
             if ($search !== '') {
                 $words = preg_split('/\s+/', $search);
                 foreach ($words as $i => $word) {
                     $where .= " AND (
-                        `Title` LIKE :word{$i}1
-                        OR `Author` LIKE :word{$i}2
-                        OR `Genre` LIKE :word{$i}3
-                        OR `Series` LIKE :word{$i}4
+                        `title` LIKE :word{$i}1
+                        OR `author` LIKE :word{$i}2
+                        OR `genre` LIKE :word{$i}3
+                        OR `series` LIKE :word{$i}4
                     )";
                     $params[":word{$i}1"] = '%' . $word . '%';
                     $params[":word{$i}2"] = '%' . $word . '%';
@@ -95,7 +95,7 @@
 
         <div class="book-grid">
             <?php
-                $query = "SELECT * FROM `library` WHERE $where ORDER BY `Author` ASC, `Series` ASC, `Volume` ASC LIMIT :limit OFFSET :offset";
+                $query = "SELECT * FROM `library` WHERE $where ORDER BY `author_last` ASC, `series` ASC, `volume` ASC LIMIT :limit OFFSET :offset";
                 $stmt = $pdo->prepare($query);
                 foreach ($params as $key => $value) {
                     $stmt->bindValue($key, $value);
@@ -111,20 +111,20 @@
 
                 foreach ($books as $book) {
                     echo '<div class="book-card">';
-                    if ($book['Image']) {
-                        echo '<img src="/' . htmlspecialchars($book['Image']) . '" alt="' . htmlspecialchars($book['Title']) . ' cover" class="book-cover" loading="lazy">';
+                    if ($book['image']) {
+                        echo '<img src="/../book-covers/' . htmlspecialchars($book['image']) . '" alt="' . htmlspecialchars($book['title']) . ' cover" class="book-cover" loading="lazy">';
                     } else {
                         echo '<div class="book-cover-placeholder">No Image</div>';
                     }
-                    echo '<h2>' . $book['Title'] . '</h2>';
-                    echo '<p>' . $book['Author'] . '</p>';
-                    if ($book['Series'] || $book['Volume']) {
-                        echo '<p>' . $book['Series'] . " " . ($book['Volume'] ? ' Book ' . $book['Volume'] : '') . '</p>';
+                    echo '<h2>' . $book['title'] . '</h2>';
+                    echo '<p>' . $book['authors'] . '</p>';
+                    if ($book['series'] || $book['volume']) {
+                        echo '<p>' . $book['series'] . " " . ($book['volume'] ? ' Book ' . $book['volume'] : '') . '</p>';
                     }
-                    if ($book['Genre']) {
-                        echo '<p><strong>Genre:</strong> ' . $book['Genre'] . '</p>';
+                    if ($book['genre']) {
+                        echo '<p><strong>Genre:</strong> ' . $book['genre'] . '</p>';
                     }
-                    echo '<p><strong>Status:</strong> ' . $book['Status'] . '</p>';
+                    echo '<p><strong>Status:</strong> ' . $book['status'] . '</p>';
                     echo '</div>';
                 }
 

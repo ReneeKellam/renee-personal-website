@@ -3,6 +3,8 @@
     adminChecker();
 ?>
 
+<!-- (!!! DISPLAY WILL CHANGE SOON !!!) -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,7 @@
 
 <div class="page-content">
     <h1 class="centered">Library Builder</h1>
-    <a href="new-book.php"><button class="centered">Add New Book</button></a>
+    <a href="creator-library.php?id=new"><button class="centered">Add New Book</button></a>
     <br>
     <h2 class="centered">Existing Books</h2>
     <?php
@@ -54,7 +56,7 @@
 
     <div class="book-grid">
         <?php
-            $query = "SELECT * FROM `library` ORDER BY `date-added` DESC  LIMIT :limit OFFSET :offset";
+            $query = "SELECT * FROM `library` ORDER BY `date_updated` ASC LIMIT :limit OFFSET :offset";
             $stmt = $pdo->prepare($query);
             $stmt->bindValue(':limit', $recordsPerPage, PDO::PARAM_INT);
             $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
@@ -66,30 +68,25 @@
             }
 
             foreach ($books as $book) {
-                echo '<div class="book-card">';
-                if ($book['Image']) {
-                    echo '<img src="/' . htmlspecialchars($book['Image']) . '" alt="' . htmlspecialchars($book['Title']) . ' cover" class="book-cover" loading="lazy">';
-                } else {
-                    echo '<div class="book-cover-placeholder">No Image</div>';
-                }
-                echo '<h2>' . $book['Title'] . '</h2>';
-                echo '<p>' . $book['Author'] . '</p>';
-                echo '<p>' . $book['Series'] . " " . ($book['Volume'] ? ' Book ' . $book['Volume'] : '') . '</p>';
-                echo '<p><strong>Genre:</strong> ' . $book['Genre'] . '</p>';
-                echo '<p><strong>Status:</strong> ' . $book['Status'] . '</p>';
-                if ($book['Rating']) {
-                    echo '<p><strong>Rating:</strong> ' . $book['Rating'] . '/5</p>';
-                }
-                echo '<p><strong>Date Added:</strong> ' . $book['Date-Added'] . '</p>';
-                echo '<a href="edit-book.php?id=' . $book['Book-ID'] . '"><button>Edit</button></a> ';
-                echo '<form class="hide-book-form" style="display:inline;">
-                            <label for="hide-'.$book['Book-ID'].'">Hidden</label>
-                            <input type="checkbox" name="hidden" value="1" '.($book['hidden'] == 1 ? 'checked' : '').' data-id="'.$book['Book-ID'].'" id="hide-'.$book['Book-ID'].'" style="margin-right:5px;">
-                        </form>';
-                
-                echo '</div>';
+        ?>
+                <a href="creator-library.php?id=<?php echo $book['id']; ?>">
+                    <div class="book-card">
+                    
+                        <?php if ($book['image']): ?>
+                            <img src="/../../book-covers/<?php echo htmlspecialchars($book['image']); ?>" alt="<?php echo htmlspecialchars($book['title']); ?> cover" class="book-cover" loading="lazy">
+                        <?php else: ?>
+                            <div class="book-cover-placeholder">No Image</div>
+                        <?php endif; ?>
+                        <h2><?php echo htmlspecialchars($book['title']); ?></h2>
+                        <p><?php echo htmlspecialchars($book['author']); ?></p>
+                        <p><?php echo htmlspecialchars($book['series']) . " " . ($book['volume'] ? ' Book ' . htmlspecialchars($book['volume']) : ''); ?></p>
+                        <p><strong>Genre:</strong> <?php echo htmlspecialchars($book['genre']); ?></p>
+                        <p><strong>Status:</strong> <?php echo htmlspecialchars($book['status']); ?></p>
+                        <p><strong>Date Updated:</strong> <?php echo htmlspecialchars($book['date_updated']); ?></p>
+                    </div>
+                </a>
+        <?php
             }
-
         ?>
     </div>
 </div>

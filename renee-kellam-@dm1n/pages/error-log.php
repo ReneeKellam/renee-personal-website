@@ -1,5 +1,7 @@
-<?php include __DIR__ . '/admin-checker.php'; ?>
-<?php include __DIR__ . '/../config/database.php'; ?>
+<?php
+    require_once __DIR__ . '/../../config/new-config.php';
+    adminChecker();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,14 +15,14 @@
     <style> .error-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/adminheader.php'; ?>
+<?php include __DIR__ . '/../adminheader.php'; ?>
 
 <body>
     <div class="content">
         <h2>Recent Errors</h2>
         <ul>
             <?php
-            $errors = file(__DIR__ . '/../renee-kellam-@dm1n/error.log');
+            $errors = file(__DIR__ . '/../error.log');
             foreach ($errors as $error) {
                 echo "<li>" . htmlspecialchars($error) . "</li>";
             }
