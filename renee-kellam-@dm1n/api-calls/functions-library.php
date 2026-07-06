@@ -22,7 +22,7 @@ function uploadBookCover(array $bookData): string {
     $targetDir = __DIR__ . '/../../book-covers/';
     $file = $bookData['image'] ?? null;
     $fileName = basename($file['name']);
-    $newFileName = str_replace(' ', '_', $bookData['author_last'] . '_' . $bookData['title']) . '_' . date('Ymd_His') . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
+    $newFileName = str_replace(' ', '_', $bookData['author-last'] . '_' . $bookData['title']) . '_' . date('Ymd_His') . '.' . pathinfo($fileName, PATHINFO_EXTENSION);
     $targetFile = $targetDir . $newFileName;
 
     // Check if file is an image
@@ -67,7 +67,7 @@ function newBook(array $bookData): array {
     }
 
     try {
-        $stmt = $pdo->prepare("INSERT INTO library (title, author_first, author_last, authors, series, volume, genre, status, image, hidden, rating, type) VALUES (:title, :author_first, :author_last, :authors, :series, :volume, :genre, :status, :image, :hidden, :rating, :type)");
+        $stmt = $pdo->prepare("INSERT INTO library (title, author_first, author_last, authors, series, volume, genre, status, image, hidden, type) VALUES (:title, :author_first, :author_last, :authors, :series, :volume, :genre, :status, :image, :hidden, :type)");
         $stmt->execute([
             'title' => $bookData['title'],
             'author_first' => $bookData['author-first'],
@@ -77,7 +77,6 @@ function newBook(array $bookData): array {
             'volume' => normalizeNullableInt($bookData['volume'] ?? null),
             'genre' => $bookData['genre'],
             'status' => $bookData['status'],
-            'rating' => normalizeNullableInt($bookData['rating'] ?? null),
             'type' => $bookData['type'] ?? null,
             'image' => $filename ?? null,
             'hidden' => $bookData['hidden'] ?? 0
@@ -104,7 +103,7 @@ function updateBook(array $bookData): array {
     }
 
     try {
-        $stmt = $pdo->prepare("UPDATE library SET title = :title, author_first = :author_first, author_last = :author_last, authors = :authors, series = :series, volume = :volume, genre = :genre, status = :status, rating = :rating, type = :type" . ($filename ? ", image = :image" : "") . " WHERE id = :bookId");
+        $stmt = $pdo->prepare("UPDATE library SET title = :title, author_first = :author_first, author_last = :author_last, authors = :authors, series = :series, volume = :volume, genre = :genre, status = :status, type = :type" . ($filename ? ", image = :image" : "") . " WHERE id = :bookId");
         $params = [
             'title' => $bookData['title'],
             'author_first' => $bookData['author-first'],
@@ -114,7 +113,6 @@ function updateBook(array $bookData): array {
             'volume' => normalizeNullableInt($bookData['volume'] ?? null),
             'genre' => $bookData['genre'],
             'status' => $bookData['status'],
-            'rating' => normalizeNullableInt($bookData['rating'] ?? null),
             'type' => $bookData['type'] ?? null,
             'bookId' => $bookId
         ];

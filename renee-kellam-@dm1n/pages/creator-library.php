@@ -3,9 +3,9 @@
     adminChecker();
     require_once __DIR__ . '/../api-calls/functions-library.php';
 
+
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $bookId = (int)$_GET['id'];
-        $bookId = "new";
     } else {
         $bookId = "new";
     }
@@ -30,20 +30,14 @@
         }
     }
 
+    echo $bookId;
+
     if ($bookId !== "new") {       
         $book = getBookById($bookId);
+        print_r($book);
     }
 
-    // ADJUSTMENT LOGIC
-    if (!isset($book["error"])) {
-        // adjust book data due to changes in database structure
-        if (isset($book['author'])) {
-            $authorParts = explode(' ', $book['author'], 2);
-            $book['author-first'] = $authorParts[0];
-            $book['author-last'] = isset($authorParts[1]) ? $authorParts[1] : '';
-            $book["authors"] = $book['author'];
-        }
-    }
+  
 
     // Error message display logic
     $error_message = "";
@@ -89,8 +83,8 @@
 
         <label for="author">Primary Author: (If only one Name, use Last Name)</label>
         <div class="form-group">
-            <input type="text" id="fname" name="author-first" value="<?php echo isset($book['author-first']) ? htmlspecialchars($book['author-first']) : ''; ?>" placeholder="First Name">
-            <input type="text" id="lname" name="author-last" value="<?php echo isset($book['author-last']) ? htmlspecialchars($book['author-last']) : ''; ?>" placeholder="Last Name (if applicable)" required>
+            <input type="text" id="fname" name="author-first" value="<?php echo isset($book['author_first']) ? htmlspecialchars($book['author_first']) : ''; ?>" placeholder="First Name">
+            <input type="text" id="lname" name="author-last" value="<?php echo isset($book['author_last']) ? htmlspecialchars($book['author_last']) : ''; ?>" placeholder="Last Name (if applicable)" required>
         </div>
 
         <label for="authors">Additional Authors (if applicable):</label>
