@@ -89,4 +89,20 @@ function adminChecker() {
     }
 }
 
+function logoutAdmin() {
+    session_unset();
+    session_destroy();
+    header('Location: /home');
+    exit;
+}
+
+function modalDisplay(string $message) {
+    echo '<div class="modal">';
+    echo '<div class="modal-content">';
+    echo '<p>' . htmlspecialchars($message) . '</p>';
+    echo '<button class="close-button" onclick="this.parentElement.parentElement.style.display=\'none\';">Close</button>';
+    echo '</div>';
+    echo '</div>';
+}
+
 // End of config file

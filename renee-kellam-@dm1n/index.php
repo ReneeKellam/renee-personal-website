@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] === true) {
-    header('Location: /renee-kellam-@dm1n/verification.php');
-    exit;
-}
+    require_once __DIR__ . '/../../config/new-config.php';
+    require_once __DIR__ . '/../api-calls/functions-passwords.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +11,7 @@ if (isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] 
 </head>
 <body>
     <h2>Admin Login</h2>
-    <form method="POST" action="/renee-kellam-@dm1n/verification.php">
+    <form method="POST">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
         <button type="submit">Login</button>

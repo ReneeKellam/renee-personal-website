@@ -43,7 +43,7 @@
                         $info_display = "<a href='" . htmlspecialchars($project['link']) . "' target='_blank' rel='noopener noreferrer'>" . htmlspecialchars($link_text) . "</a> | " . htmlspecialchars($project['date-of-project']);
                     }
 
-                    echo '<div class="card" style="background-color: #fff;">';
+                    echo '<div class="job-entry-card">';
                     echo '<table class="job-entry">';
                     echo '<tr>';
                     echo '<td><h2>'. htmlspecialchars($project['name']) .'</h2></td>';

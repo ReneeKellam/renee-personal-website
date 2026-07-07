@@ -1,4 +1,19 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~Defined Colors~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+:root {
+    /* USER DEFINED COLORS - ADJUST TO PREFERENCES */
+    --fav-color: #851a85;
+    --fav-color-select: #b925b9;
+    --background-color: #ffffff;
+    --darker-background-color: #dddddd;
+    --card-color: #bbbbbb;
+    --border-color: #666666;
+    --black: #000000;
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~General Styling~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 h1 {
@@ -14,6 +29,20 @@ p {
     font-family: Arial, sans-serif;
     font-size: 1.2em;
 }
+a {
+    color: var(--fav-color);
+    text-decoration: none;
+}
+body {
+    background-color: var(--background-color);
+    color: var(--black);
+    margin: 0;
+    padding: 0;
+}
+a:hover {
+    color: var(--fav-color-select);
+    text-decoration: underline;
+}
 .centered {
     display: block;
     margin-left: auto;
@@ -27,12 +56,50 @@ p {
     border-radius: 5px;
 }
 .card {
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
+    background-color: var(--darker-background-color);
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* ~~~~~~~~~~Modal Styling~~~~~~~~~~~~ */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: var(--background-color);
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    width: 80%;
+    max-width: 500px; /* Limit the maximum width */
+    border-radius: 5px;
+}
+
+.modal button {
+    background-color: var(--fav-color);
+    color: var(--black);
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal button:hover {
+    background-color: var(--fav-color-select);
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -46,8 +113,8 @@ p {
     justify-content: center; /* Center the skill cards */
 }
 .skill-card {
-    background: #fff;
-    border: 1px solid #000;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     padding: 10px;
@@ -76,8 +143,8 @@ p {
 .book-card {
     width: 200px;
     height: auto;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     padding: 10px;
     text-align: center;
@@ -93,6 +160,14 @@ p {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* ~~~~~~~~~~Resume Styling~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.job-entry-card {
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
 .job-entry {
     width: 100%;
     border-collapse: collapse;
@@ -113,12 +188,12 @@ p {
 /* ~~~~~~~~~~Header Styling~~~~~~~~~~~ */
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .header {
-    background-color: #f2f2f2;
+    background-color: var(--darker-background-color);
     display: flex;
     padding-left: 10px;
     padding-right: 10px;
     align-items: center;
-    border-bottom: 2px solid #000000;
+    border-bottom: 2px solid var(--black);
     width: 80vw;
     margin: 0 auto;
 }
@@ -128,21 +203,21 @@ p {
 }
 .nav-table td {
     padding: 0 10px;
-    border-right:#000000 1px solid;
+    border-right: var(--black) 1px solid;
 }
 .nav-table td:last-child {
     border-right: none;
 }
 .nav-table a {
     text-decoration: none;
-    color: #000000;
+    color: var(--black);
     font-weight: bold;
     font-family: 'Franklin Gothic', sans-serif;
     
 }
 .nav-table a:hover {
     text-decoration: underline;
-    color: #555555;
+    color: var(--fav-color);
 }
 .nav-table { display: table; }
 .mobile-nav { display: none; }
@@ -163,21 +238,21 @@ p {
         display: none;
         position: absolute;
         right: 0;
-        background-color: #f2f2f2;
-        border:#000 2px solid;
+        background-color: var(--background-color);
+        border: var(--black) 2px solid;
         min-width: 200px;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         z-index: 9999;
     }
     .dropdown-content a {
-        color: #000;
+        color: var(--black);
         padding: 5px;
         text-decoration: none;
         display: block;
         font-weight: bold;
     }
     .dropdown-content a:hover {
-        background-color: #ddd;
+        background-color: var(--background-color);
     }
     .dropdown-content.show {
         display: block;
@@ -190,7 +265,7 @@ p {
     .job-entry {
         border: none;
         margin-bottom: 15px;
-        background: #fff;
+        background: var(--card-color);
         box-shadow: 0 2px 6px rgba(0,0,0,0.07);
         padding: 10px;
     }

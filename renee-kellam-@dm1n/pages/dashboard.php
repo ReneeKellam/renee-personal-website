@@ -1,7 +1,7 @@
 <?php
     require_once __DIR__ . '/../../config/new-config.php';
     adminChecker();
-    require_once __DIR__ . '/../api-calls/functions-generic.php';
+    require_once __DIR__ . '/../api-calls/functions-passwords.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'change_password') {
         $currentPassword = $_POST['current_password'] ?? '';
@@ -24,7 +24,7 @@
     <style> .stats-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/admin-header.php'; ?>
+<?php include __DIR__ . '/../admin-header.php'; ?>
 
 <?php if (isset($resultMessage)) : ?>
     <div class="modal">
