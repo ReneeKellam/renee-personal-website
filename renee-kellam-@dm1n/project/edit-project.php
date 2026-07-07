@@ -13,7 +13,7 @@
     <style> .project-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/../adminheader.php'; ?>
+<?php include __DIR__ . '/../admin-header.php'; ?>
 
 <?php
     $projectId = $_GET['id'] ?? null;

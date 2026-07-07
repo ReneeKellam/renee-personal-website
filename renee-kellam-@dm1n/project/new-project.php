@@ -13,7 +13,7 @@
     <style> .project-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/../adminheader.php'; ?>
+<?php include __DIR__ . '/../admin-header.php'; ?>
 
 <form action="create-project.php" method="POST" style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 75vw; margin: auto; font-size: 1.25em;">
     <label for="project-name">Project Name*:</label>

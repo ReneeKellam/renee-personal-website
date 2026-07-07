@@ -58,7 +58,7 @@
     <style> .library-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/../adminheader.php'; ?>
+<?php include __DIR__ . '/../admin-header.php'; ?>
 
 <style>
     .form-container {

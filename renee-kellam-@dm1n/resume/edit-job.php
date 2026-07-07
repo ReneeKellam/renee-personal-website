@@ -13,7 +13,7 @@
     <style> .resume-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/../adminheader.php'; ?>
+<?php include __DIR__ . '/../admin-header.php'; ?>
 
 <?php 
     $jobId = $_GET['id'] ?? null;

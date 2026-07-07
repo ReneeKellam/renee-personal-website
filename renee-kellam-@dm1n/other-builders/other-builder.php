@@ -13,7 +13,7 @@
     <style> .other-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/../adminheader.php'; ?>
+<?php include __DIR__ . '/../admin-header.php'; ?>
 
 <div class="page-content">
     <div class="card">

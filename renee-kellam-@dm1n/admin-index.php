@@ -13,7 +13,7 @@
     <style> .stats-nav { background-color: #ddd; } </style>
 </head>
 
-<?php include __DIR__ . '/adminheader.php'; ?>
+<?php include __DIR__ . '/admin-header.php'; ?>
 
 <div class="page-content">
     <h1 class="centered">Admin Dashboard</h1>
