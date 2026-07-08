@@ -2,65 +2,27 @@
     require_once __DIR__ . '/../../config/new-config.php';
     adminChecker();
 
-    $search = urldecode(trim($_GET['search'] ?? '')); // Get the search term from the query string, if it exists, and trim any whitespace. If not provided, default to an empty string.
-    $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1; // Get the current page number from the query string, if it exists and is numeric. If not provided, default to page 1.
-    $series = isset($_GET['series']) ? urldecode(trim($_GET['series'])) : ''; // Get the series filter from the query string, if it exists, and trim any whitespace. If not provided, default to an empty string.
-    $limit = isset($_GET['limit']) && is_numeric($_GET['limit']) ? (int)$_GET['limit'] : 25; // Default to 25 records per page if not specified
+    $searchData = [
+        "search" => urldecode(trim($_GET['search'] ?? '')), // Get the search term from the query string, if it exists, and trim any whitespace. If not provided, default to an empty string.
+        "pg" => isset($_GET['pg']) && is_numeric($_GET['pg']) ? (int)$_GET['pg'] : 1, // Get the current page number from the query string, if it exists and is numeric. If not provided, default to page 1.
+        "series" => isset($_GET['series']) ? urldecode(trim($_GET['series'])) : '', // Get the series filter from the query string, if it exists, and trim any whitespace. If not provided, default to an empty string.
+        "lim" => isset($_GET['lim']) && is_numeric($_GET['lim']) ? (int)$_GET['lim'] : 25, // Default to 25 records per page if not specified
+    ];
 
-    $offset = max(0, ($page - 1) * $limit); // Ensure offset is not negative, since page numbers start at 1 need to subtract 1 from the page number to get the correct offset.
-
-    if (!empty($series)) {
-        $query = "SELECT * FROM `library` WHERE `series` LIKE :series ORDER BY `author_last`, `volume` LIMIT :limit OFFSET :offset";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindValue(':series', '%' . $series . '%');
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $output = searchBooks($searchData); // Call the searchBooks function with the search data and get the results and whether to display the next button.
+    if (isset($output['error'])) {
+        modalDisplay($output['error']);
+        $books = [];
+        $paginationData = [
+            'pg' => 1,
+            'lim' => 25,
+            'totalPages' => 1,
+            'additionalParams' => []
+        ];
     } else {
-        $query = "
-            SELECT ranked.*
-            FROM (
-                SELECT
-                    l.*,
-                    COUNT(*) OVER (
-                        PARTITION BY CASE
-                            WHEN l.series IS NULL OR l.series = '' THEN l.id
-                            ELSE l.series
-                        END
-                    ) AS series_book_count,
-                    l.image AS first_book_image,
-                    ROW_NUMBER() OVER (
-                        PARTITION BY CASE
-                            WHEN l.series IS NULL OR l.series = '' THEN l.id
-                            ELSE l.series
-                        END
-                        ORDER BY
-                            CASE WHEN l.volume = 1 THEN 0 ELSE 1 END ASC,
-                            l.volume ASC,
-                            l.author_last ASC,
-                            l.series ASC,
-                            l.date_updated ASC,
-                            l.id ASC
-                    ) AS rn
-                FROM `library` l" . (!empty($search) ? " WHERE MATCH(l.title, l.authors, l.series, l.genre) AGAINST(:search IN BOOLEAN MODE)" : "") . "
-            ) ranked
-            WHERE ranked.series IS NULL OR ranked.series = '' OR ranked.rn = 1
-            ORDER BY ranked.author_last ASC, ranked.series ASC, ranked.date_updated ASC, ranked.id ASC
-            LIMIT :limit OFFSET :offset
-        ";
-        $stmt = $pdo->prepare($query);
-        if (!empty($search)) { // If a search term is provided, bind it to the prepared statement, otherwise, skip this step.
-            $stmt->bindValue(':search', $search);
-        }
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-        $books = $stmt->fetchAll(PDO::FETCH_ASSOC);    
+        $books = $output['books'];
+        $paginationData = $output['paginationData']; // Get the pagination data from the output of the searchBooks function.
     }
-
-    // For simple pagination, get the total count of books for the current search and if it isnt equal to the records per page, then display the next button
-    $dispNextButton = count($books) === $limit ? true : false;
 ?>
 
 <!DOCTYPE html>
@@ -82,36 +44,13 @@
     <a href="creator-library.php?id=new"><button class="centered">Add New Book</button></a>
     <br>
     <h2 class="centered">Existing Books</h2>
-    <div class="card" style="text-align:center; margin-bottom:20px;">CSS:
-        <?php
-        // Previous page button
-        if ($page > 1) {
-            echo '<a href="?page=' . ($page - 1) . '" style="margin-right:10px;"><button>&lt;</button></a>';
-        } else {
-            echo '<button disabled style="margin-right:10px;">&lt;</button>';
-        }
-        ?>
-        
-
-        <form class="pagination" method="GET" action="" style="display:inline;">
-            <!-- hidden inputs preserve necessary states -->
-            <input type="hidden" name="series" value="<?php echo htmlspecialchars($series); ?>">
-            <input type="hidden" name="search" value="<?php echo htmlspecialchars($search); ?>">
-            <input type="hidden" name="page" value="1"> <!-- on limit change -->
-            <select name="limit" onchange="this.form.submit()">
-                <option value="25" <?php echo $limit == 25 ? 'selected' : ''; ?>>25</option>
-                <option value="50" <?php echo $limit == 50 ? 'selected' : ''; ?>>50</option>
-                <option value="100" <?php echo $limit == 100 ? 'selected' : ''; ?>>100</option>
-            </select>
+    <div class="card" style="text-align:center; margin-bottom:20px;">
+        <form method="GET" action="">
+            <input type="text" name="search" placeholder="Search by title, author, series, or genre" value="<?php echo htmlspecialchars($searchData['search']); ?>">
+            <input type="submit" value="Search">
         </form>
 
-        <?php
-        if ($dispNextButton) {
-            echo '<a href="?page=' . ($page + 1) . '"><button>&gt;</button></a>';
-        } else {
-            echo '<button disabled>&gt;</button>';
-        }
-        ?>
+        <?php pagination($paginationData); // Call the pagination function to display pagination controls ?>
     </div>
 
     <div class="book-grid">
@@ -138,6 +77,7 @@
                             <img class="book-cover series" src="<?php echo $coverImage; ?>" alt="<?php echo htmlspecialchars($book['title']); ?> cover" loading="lazy">
                             <h2><?php echo htmlspecialchars($book['series']); ?></h2>
                             <p><?php echo htmlspecialchars($book['author_first'] . ' ' . $book['author_last']); ?></p>
+                            <p><strong>Books in Series:</strong> <?php echo htmlspecialchars($book['series_book_count']); ?></p>
                             <p><strong>Date Updated:</strong> <?php echo htmlspecialchars($book['date_updated']); ?></p>
                         </div>
                     </a>

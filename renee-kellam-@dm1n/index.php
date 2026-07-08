@@ -3,13 +3,19 @@
     require_once __DIR__ . '/api-calls/functions-passwords.php';
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
-        
         $msg = login($_POST['password']);
         
         if ($msg === true) {
             header("location: pages/dashboard.php");
+            exit();
         }
-    
+
+        unset($_POST); // Clear POST data to prevent resubmission and security
+    }
+
+    if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+        header("location: pages/dashboard.php");
+        exit();
     }
 ?>
 <!DOCTYPE html>
