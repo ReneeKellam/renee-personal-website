@@ -105,4 +105,30 @@ function modalDisplay(string $message) {
     echo '</div>';
 }
 
+// Pagination function to generate dynamic pagination controls
+function pagination(array $paginationData, int $defaultLimit = 25, array $limits = [25, 50, 100]): void {
+    $pg = max(1, ((int)$paginationData['pg'] ?? 1)); // Ensure page number is at least 1
+    $lim = (int)$paginationData['lim'] ?? $defaultLimit; // Ensure limit is an integer
+    $totalPages = (int)$paginationData['totalPages'] ?? 1; // Ensure total pages is an integer, default to 1 if not provided
+    $additionalParams = $paginationData['additionalParams'] ?? []; // Additional parameters to preserve in the query string
+
+    echo '<div class="pagination-card">';
+    echo '<form class="pagination" method="GET" action="">'; // Use GET method to preserve query parameters in the URL & prevent any refresh issues
+    // Preserve additional parameters as hidden inputs
+    foreach ($additionalParams as $key => $value) {
+        echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
+    }
+    echo '<input type="submit" name="pg" id="pg" value="' . htmlspecialchars($pg-1) . '" ' . ($pg === 1 ? 'disabled="disabled"' : '') . '> &lt; </input>'; // Previous page button, disable on page 1
+    echo '<select name="lim" id="lim" onchange="this.form.submit()">'; // Limit selection dropdown, submit form on change, does not send page number, thus resetting to page 1
+    foreach ($limits as $limit) {
+        $selected = $lim === $limit ? 'selected' : '';
+        echo '<option value="' . htmlspecialchars($limit) . '" ' . $selected . '>' . htmlspecialchars($limit) . '</option>';
+    }
+    echo '</select>';
+    echo '<input type="submit" name="pg" id="pg" value="' . htmlspecialchars($pg+1) . '" ' . ($pg === $totalPages ? 'disabled="disabled"' : '') . '> &gt; </input>'; // Next page button, disable on last page
+    echo '<span>' . $pg . ' / ' . $totalPages . '</span>'; // Display current page and total pages
+    echo '</form>';
+    echo '</div>';
+}
+
 // End of config file
