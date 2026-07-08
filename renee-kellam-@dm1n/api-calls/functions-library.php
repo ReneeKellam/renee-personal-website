@@ -166,42 +166,38 @@ function searchBooks(array $searchData): array {
         // If no search term is specified, display only the first book in each series and any standalone books. This is to prevent overwhelming the user with too many results and to provide a cleaner view of the library. (Blame Jim Butcher for having 18 Books in one amazing series)
         try {
             $query = "
-                SELECT ranked_images.*, COUNT(*) OVER () AS total_count
-                FROM (
+                WITH grouped AS (
                     SELECT
-                        ranked.*,
-                        MAX(CASE WHEN ranked.rn = 1 THEN ranked.image END) OVER (PARTITION BY ranked.series_group_key) AS first_book_image,
-                        MAX(CASE WHEN ranked.rn = 2 THEN ranked.image END) OVER (PARTITION BY ranked.series_group_key) AS second_book_image,
-                        MAX(CASE WHEN ranked.rn = 3 THEN ranked.image END) OVER (PARTITION BY ranked.series_group_key) AS third_book_image
-                    FROM (
-                        SELECT
-                            l.*,
-                            CASE
-                                WHEN l.series IS NULL OR l.series = '' THEN CONCAT('book:', l.id)
-                                ELSE CONCAT('series:', l.series)
-                            END AS series_group_key,
-                            COUNT(*) OVER (
-                                PARTITION BY CASE
-                                    WHEN l.series IS NULL OR l.series = '' THEN l.id
-                                    ELSE l.series
-                                END
-                            ) AS series_book_count,
-                            ROW_NUMBER() OVER (
-                                PARTITION BY CASE
-                                    WHEN l.series IS NULL OR l.series = '' THEN l.id
-                                ELSE l.series
-                            END
-                            ORDER BY
-                                CASE WHEN l.volume = 1 THEN 0 ELSE 1 END ASC,
-                                l.volume ASC,
-                                l.author_last ASC,
-                            ) AS rn
-                        FROM `library` l
-                    ) ranked
-                ) ranked_images
-                WHERE ranked_images.series IS NULL OR ranked_images.series = '' OR ranked_images.rn = 1
-                ORDER BY ranked_images.author_last ASC, ranked_images.series ASC, ranked_images.date_updated ASC, ranked_images.id ASC
-                LIMIT :limit OFFSET :offset
+                        CASE
+                            WHEN l.series IS NULL OR l.series = '' THEN CONCAT('book:', l.id)
+                            ELSE CONCAT('series:', l.series)
+                        END AS group_key,
+                        COUNT(*) AS series_book_count,
+                        MAX(CASE WHEN l.volume = 1 THEN l.image END) AS first_book_image,
+                        MAX(CASE WHEN l.volume = 2 THEN l.image END) AS second_book_image,
+                        MAX(CASE WHEN l.volume = 3 THEN l.image END) AS third_book_image,
+                        COALESCE(MAX(CASE WHEN l.volume = 1 THEN l.id END), MIN(l.id)) AS display_book_id
+                    FROM library l
+                    GROUP BY
+                        CASE
+                            WHEN l.series IS NULL OR l.series = '' THEN CONCAT('book:', l.id)
+                            ELSE CONCAT('series:', l.series)
+                        END
+                ),
+                cards AS (
+                    SELECT
+                        b.*,
+                        g.series_book_count,
+                        COALESCE(g.first_book_image, b.image) AS first_book_image,
+                        g.second_book_image,
+                        g.third_book_image
+                    FROM grouped g
+                    JOIN library b ON b.id = g.display_book_id
+                )
+                SELECT cards.*, COUNT(*) OVER () AS total_count
+                FROM cards
+                ORDER BY cards.author_last, cards.series, cards.date_updated, cards.id
+                LIMIT :limit OFFSET :offset;
             ";
             $stmt = $pdo->prepare($query);
             $stmt->bindValue(':limit', $lim, PDO::PARAM_INT);
