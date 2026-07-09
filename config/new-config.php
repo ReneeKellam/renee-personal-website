@@ -118,14 +118,14 @@ function pagination(array $paginationData, int $defaultLimit = 25, array $limits
     foreach ($additionalParams as $key => $value) {
         echo '<input type="hidden" name="' . htmlspecialchars($key) . '" value="' . htmlspecialchars($value) . '">';
     }
-    echo '<input type="submit" name="pg" id="pg" value="' . htmlspecialchars($pg-1) . '" ' . ($pg === 1 ? 'disabled="disabled"' : '') . '> &lt; </input>'; // Previous page button, disable on page 1
+    echo '<button type="submit" name="pg" id="pg" value="' . htmlspecialchars($pg-1) . '" ' . ($pg === 1 ? 'disabled="disabled"' : '') . '> &lt; </button>'; // Previous page button, disable on page 1
     echo '<select name="lim" id="lim" onchange="this.form.submit()">'; // Limit selection dropdown, submit form on change, does not send page number, thus resetting to page 1
     foreach ($limits as $limit) {
         $selected = $lim === $limit ? 'selected' : '';
         echo '<option value="' . htmlspecialchars($limit) . '" ' . $selected . '>' . htmlspecialchars($limit) . '</option>';
     }
     echo '</select>';
-    echo '<input type="submit" name="pg" id="pg" value="' . htmlspecialchars($pg+1) . '" ' . ($pg === $totalPages ? 'disabled="disabled"' : '') . '> &gt; </input>'; // Next page button, disable on last page
+    echo '<button type="submit" name="pg" id="pg" value="' . htmlspecialchars($pg+1) . '" ' . ($pg === $totalPages ? 'disabled="disabled"' : '') . '> &gt; </button>'; // Next page button, disable on last page
     echo '<span>' . $pg . ' / ' . $totalPages . '</span>'; // Display current page and total pages
     echo '</form>';
     echo '</div>';
