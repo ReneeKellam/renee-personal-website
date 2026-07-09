@@ -39,10 +39,10 @@
 <?php include "../config/header.php"; ?>
 
 <div class="page-content">
-    <h1 class="centered">Library Builder</h1>
-    <a href="creator-library.php?id=new"><button class="centered">Add New Book</button></a>
-    <br>
-    <h2 class="centered">Existing Books</h2>
+    <div class="card">
+        <h1 class="centered">Renée's Library</h1>
+        <p class="centered">Welcome to the library! Here you will find some of the myriad of books and papers I have read that have helped to shape the person I am today.</p>
+    </div>
     <div class="card search" style="text-align:center; margin-bottom:20px;">
         <form method="GET" action="">
             <input type="text" name="search" placeholder="Search by title, author, series, or genre" value="<?php echo htmlspecialchars($searchData['search']); ?>">
@@ -64,7 +64,6 @@
                             <img class="book-cover" src="<?php echo $coverImage; ?>" alt="<?php echo htmlspecialchars($book['title']); ?> cover" loading="lazy">
                             <h2><?php echo $book['title']; ?></h2>
                             <p><?php echo htmlspecialchars($book['author_first'] . ' ' . $book['author_last']); ?></p>
-                            <p><strong>Date Updated:</strong> <?php echo htmlspecialchars($book['date_updated']); ?></p>
                         </div>
                     </a>
         <?php
@@ -98,6 +97,10 @@
                 }
             }
         ?>
+    </div>
+    
+    <div class="card search" style="text-align:center; margin-bottom:20px;">
+        <?php pagination($paginationData); // Call the pagination function to display pagination controls ?>
     </div>
 </div>
 </html>
